@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container pt-3">
+    <div class="card">
+        <div class="card-body">
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li class="">{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            <div class="py-5 border-b border-gray-200">
+                <a class="hover:text-blue-500" href="{% url 'register' %}">Don't have an account?</a>
+            </div>
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input type="email" class="form-control" name="email" aria-describedby="emailHelp">
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                        else.</small>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" class="form-control" name="password">
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+            <div class="py-5 border-t border-gray-200 mt-5">
+                <a class="hover:text-blue-500" href="{% url 'reset-password' %}">Forgot password?</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

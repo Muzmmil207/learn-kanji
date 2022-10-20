@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block content %}
+
+<br>
+<main class="container">
+
+    <div class="card">
+        <div class="card-header">
+            <div class="d-flex ">
+                <form class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-default">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </form>
+                <div class="dropdown">
+                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Filter by grade
+                    </a>
+
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" href="?table_search=first">first</a>
+                        <a class="dropdown-item" href="?table_search=second">second</a>
+                        <a class="dropdown-item" href="?table_search=third">third</a>
+                        <a class="dropdown-item" href="?table_search=fourth">fourth</a>
+                        <a class="dropdown-item" href="?table_search=fifth">fifth</a>
+                        <a class="dropdown-item" href="?table_search=sixth">sixth</a>
+                        <a class="dropdown-item" href="?table_search=seventh">seventh</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body p-0">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">word</th>
+                        <th scope="col">kunyomi</th>
+                        <th scope="col">in english</th>
+                        <th scope="col">Last</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    {% for char in pages %}
+                    <tr>
+                        <td>{{char.character}}</td>
+                        <td>{{char.kunyomi}}</td>
+                        <td>{{char.meaning}}</td>
+                        <td><a href="{% url 'char' char.character %} ">more</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+            <ul class="pagination pagination-sm float-right">
+                {% if pages.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?table_search={{request.GET.table_search}}&p=1">&laquo;</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link"
+                        href="?table_search={{request.GET.table_search}}&p={{pages.previous_page_number}}">previous</a>
+                </li>
+                {% endif %}
+                {% if pages.has_next %}
+                <li class="page-item">
+                    <a class="page-link"
+                        href="?table_search={{request.GET.table_search}}&p={{pages.next_page_number}}">next</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link"
+                        href="?table_search={{request.GET.table_search}}&p={{pages.paginator.num_pages}}">&raquo;</a>
+                </li>
+                {% endif %}
+                <li class="page-item">
+                    <p class="page-link">{{pages.paginator.num_pages}}</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</main>
+{% endblock content %}

@@ -1,0 +1,27 @@
+main {
+    width: 100%;
+    min-height: 100vh;
+}
+
+.progress-sec {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+/* words */
+
+.search-form {
+    padding: 25px 10px 25px 0;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* character dil */
+.character-details {
+    display: grid;
+    grid-column: 2;
+}
+
+.login-card {
+    padding-top: 13%;
+}

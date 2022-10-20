@@ -1,0 +1,214 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load char_tags %}
+{% block content %}
+<main class="container">
+    <div>
+        <br><br>
+        {{progress}}
+        <div class="row">
+            {% for box in boxs %}
+            {% cycle 1 2 3 4 5 as rowbox silent %}
+            <div class="col mb-6">
+                <div class="card bg-light mb-3">
+                    {% ifchanged %}
+                    <div class="card-header"> {{rowbox|ordinal }} Box </div>
+                    {% endifchanged %}
+                    <div class="card-body">
+                        <span>
+                            <h5 class="card-title">{{box}}</h5>
+                        </span>
+                        <a href="?q={{rowbox}}" class="btn btn-primary">Go</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+    <hr>
+    <div class="row hidden">
+        <div class="col-sm-6">
+            <div class="card" style="width: 250px;">
+                <div class="card-body text-center">
+                    <h1 class="card-text  first-char" data-id="0">訪</h1>
+                    <h3 class=" first-char"></h3>
+                </div>
+            </div>
+        </div>
+        <div class="row col-sm-6">
+            <div class="col-3">
+                <div class="card" style="width: 7rem;">
+                    <div class="card-body text-center">
+                        <h5 class="card-text char" data-id="0">訪</h5>
+                    </div>
+                </div>
+                <div class="card" style="width: 7rem;">
+                    <div class="card-body text-center">
+                        <h5 class="card-text char" data-id="0">訪</h5>
+                    </div>
+                </div>
+                <div class="card" style="width: 7rem;">
+                    <div class="card-body text-center">
+                        <h5 class="card-text char" data-id="0">訪</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card" style="width: 7rem;">
+                    <div class="card-body text-center">
+                        <h5 class="card-text char" data-id="0">訪</h5>
+                    </div>
+                </div>
+                <div class="card" style="width: 7rem;">
+                    <div class="card-body text-center">
+                        <h5 class="card-text char" data-id="0">訪</h5>
+                    </div>
+                </div>
+                <div class="card" style="width: 7rem;">
+                    <div class="card-body text-center">
+                        <h5 class="card-text char" data-id="0">訪</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card" style="width: 7rem;">
+                    <div class="card-body text-center">
+                        <h5 class="card-text char" data-id="0">訪</h5>
+                    </div>
+                </div>
+                <div class="card" style="width: 7rem;">
+                    <div class="card-body text-center">
+                        <h5 class="card-text char" data-id="0">訪</h5>
+                    </div>
+                </div>
+                <div class="card" style="width: 7rem;">
+                    <div class="card-body text-center">
+                        <h5 class="card-text char" data-id="0">訪</h5>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="hidden">
+        <!--     <p>
+            <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button"
+                aria-expanded="false" aria-controls="collapseExample">
+                More information
+            </a>
+        </p>
+       <div class="collapse" id="collapseExample">
+            <div class="card card-body examples">
+                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil
+                anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+            </div>
+        </div> -->
+        <button class="btn btn-success" id="btn">Next</button>
+    </div>
+</main>
+<script>
+    const firstCard = document.querySelectorAll('.first-char')
+    const cards = document.querySelectorAll('.char')
+    const hidden = document.querySelectorAll('.hidden')
+    const btnNext = document.getElementById('btn')
+    const examples = document.querySelector('.examples')
+
+    let num = `{{num}}`
+    let url = `/cards-data/${num}`
+
+
+    btnNext.onclick = function () {
+        cards.forEach((e) => {
+            // var e = e.cloneNode(true)
+            let div = e.parentNode
+            div.parentNode.classList.remove('border-danger')
+            div.parentNode.classList.remove('border-success')
+        })
+        location.reload()
+    }
+
+    cardsData()
+
+    // fetch the data from the database and store it into the cards
+    function cardsData() {
+        fetch(url)
+            .then(response => response.json())
+            .then(function (data) {
+                console.log(data)
+
+                if (num > 0 && data.length > 0) {
+                    hidden[0].classList.remove('hidden')
+                }
+                hidden[1].classList.add('hidden')
+
+                firstCard[0].innerHTML = data[0]['character']
+                firstCard[0].setAttribute("data-id", data[0]['id'])
+                firstCard[1].innerHTML = (data[0]['kunyomi'].split(' '))[0] == 'n/a' ?
+                    (data[0]['onyomi'].split(' '))[0] :
+                    (data[0]['kunyomi'].split(' '))[0]
+
+
+                let shuffleData = data.sort(function () {
+                    return Math.random() - 0.5
+                })
+                for (let card in cards) {
+                    cards[card].innerHTML = shuffleData[card]['meaning'].includes(',') ?
+                        (shuffleData[card]['meaning'].split(','))[0] :
+                        shuffleData[card]['meaning']
+
+                    cards[card].setAttribute('data-id', shuffleData[card]['id'])
+                }
+
+            })
+    }
+
+    // add event listener to all cards
+    cards.forEach((e) => {
+
+        e.addEventListener('click', () => {
+
+            let result = e.dataset.id == firstCard[0].dataset.id
+            e.classList.remove('char')
+            if (result) {
+                let div = e.parentNode
+                div.parentNode.classList.add('border-success')
+            } else {
+                let div = e.parentNode
+                div.parentNode.classList.add('border-danger')
+            }
+            console.log(e)
+            sendingData(result)
+        })
+    })
+
+    // Sending POST request the database
+    function sendingData(result) {
+        cards.forEach((e) => {
+            if (e.dataset.id == firstCard[0].dataset.id) {
+                let div = e.parentNode
+                div.parentNode.classList.add('border-success')
+            }
+            e.removeEventListener('click', () => {
+
+            })
+        })
+
+        console.log(result)
+        let charId = firstCard[0].dataset.id
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+                'X-CSRFToken': csrftoken
+            },
+            body: JSON.stringify({ 'result': result, 'charId': charId })
+        })
+            .then(() => {
+                hidden[1].classList.remove('hidden')
+            })
+    }
+
+</script>
+
+{% endblock content %}

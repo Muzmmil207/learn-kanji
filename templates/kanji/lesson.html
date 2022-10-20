@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<main class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8 article">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <img src="https://media.kanjialive.com/radical_character/gonben.svg" class="card-img" alt="...">
+
+                </div>
+            </div>
+
+            <div class="row row-cols-1 row-cols-md-3">
+                <div class="col mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <img src="https://media.kanjialive.com/radical_character/gonben.svg" class="card-img char"
+                                alt="...">
+                        </div>
+                    </div>
+                </div>
+                <div class="col mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <img src="https://media.kanjialive.com/radical_character/gonben.svg" class="card-img char"
+                                alt="...">
+                        </div>
+                    </div>
+                </div>
+                <div class="col mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <img src="https://media.kanjialive.com/radical_character/gonben.svg" class="card-img char"
+                                alt="...">
+                        </div>
+                    </div>
+                </div>
+                <div class="col mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <img src="https://media.kanjialive.com/radical_character/gonben.svg" class="card-img char"
+                                alt="...">
+                        </div>
+                    </div>
+                </div>
+                <div class="col mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <img src="https://media.kanjialive.com/radical_character/gonben.svg" class="card-img char"
+                                alt="...">
+                        </div>
+                    </div>
+                </div>
+                <div class="col mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <img src="https://media.kanjialive.com/radical_character/gonben.svg" class="card-img char"
+                                alt="...">
+                        </div>
+                    </div>
+                </div>
+                <div class="col mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <img src="https://media.kanjialive.com/radical_character/gonben.svg" class="card-img char"
+                                alt="...">
+                        </div>
+                    </div>
+                </div>
+                <div class="col mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <img src="https://media.kanjialive.com/radical_character/gonben.svg" class="card-img char"
+                                alt="...">
+                        </div>
+                    </div>
+                </div>
+                <div class="col mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <img src="https://media.kanjialive.com/radical_character/gonben.svg" class="card-img char"
+                                alt="...">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% static '1.jpg' %}
+<script>
+
+    let chars = document.querySelectorAll('.char');
+    let url = '/cards-data/1'
+    for (let char in chars) {
+        chars[char].addEventListener('click', () => {
+            console.log(chars[char])
+        })
+    } 
+</script>
+{% endblock content %}
