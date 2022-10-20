@@ -16,7 +16,12 @@ def main(request):
     boxs = FlashCard.objects.filter(user=request.user)
     boxsCont = [boxs.filter(box=n).count() for n in range(1, 6)]
     num = request.GET.get('q', 0)
-
+    # card = request.user.characters.filter(box=1)
+    # grades = ['first', 'second', 'third',
+    #           'fourth', 'fifth', 'sixth', 'seventh']
+    # for self in Character.objects.all():
+    #     self.grade = str(grades.index(self.grade) + 1)
+    #     self.save()
 
     context = {'boxs': boxsCont, 'num': num}
     return render(request, 'kanji/main.html', context)

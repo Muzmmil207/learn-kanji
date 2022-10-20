@@ -6,21 +6,23 @@ from .managers import CustomUserManager
 # Create your models here.
 
 choices = (
-    ('first', 'first'),
-    ('second', 'second'),
-    ('third', 'third'),
-    ('fourth', 'fourth'),
-    ('fifth', 'fifth'),
-    ('sixth', 'sixth'),
-    ('seventh', 'seventh'),
+    ('1', '1'),
+    ('2', '2'),
+    ('3', '3'),
+    ('4', '4'),
+    ('5', '5'),
+    ('6', '6'),
+    ('7', '7'),
 )
+
 
 class User(AbstractUser):
     email = models.EmailField(_('email address'), unique=True)
-    grade = models.CharField(max_length=7, choices=choices, default=choices[0])
+    grade = models.CharField(max_length=2, choices=choices, default=choices[0])
+    is_active = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ()
+    REQUIRED_FIELDS = ('username',)
 
     objects = CustomUserManager()
 
@@ -28,7 +30,6 @@ class User(AbstractUser):
         return self.email
 
     def next_grade(self):
-        
-        self.grade=choices[1]
-        self.save()
 
+        self.grade = choices[1]
+        self.save()

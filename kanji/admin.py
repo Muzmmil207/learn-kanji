@@ -7,7 +7,7 @@ from accounts.models import User
 
 class UserAdmin(admin.ModelAdmin):
     model = User
-    fields = ["email", "username", "password", "grade"]
+    fields = ["email", "username", "grade"]
 
 
 # class CharacterExamplesInline(admin.StackedInline):

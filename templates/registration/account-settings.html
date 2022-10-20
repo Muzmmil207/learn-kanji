@@ -10,13 +10,46 @@
                 {% endfor %}
             </ul>
             {% endif %}
+            <h3>your are in {{request.user.grade}} grade</h3>
+
+            {% if request.user.is_verified %}
             <form method="post">
                 {% csrf_token %}
                 {{form}}
                 <button type="submit" class="btn btn-primary">Login</button>
             </form>
+            {% else %}
+            <h5>you need to verify your email to be abel to edit your account</h5>
+            <p>verify you account from <a href="">here</a></p>
+
+            {% endif %}
         </div>
     </div>
 </div>
-
+<!-- <main class="content">
+    <div class="container-fluid p-0">
+        <div class="row">
+            <div class="col-12 col-lg-6">
+                <div class="card">
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li class="">{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% if request.user.is_verified %}
+            <form method="post">
+                {% csrf_token %}
+                {{form}}
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+            {% else %}
+            ....
+            {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</main> -->
 {% endblock content %}
