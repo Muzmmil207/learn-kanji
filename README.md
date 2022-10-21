@@ -1,2 +1,2 @@
-# The site is still under development
+# The project is still under development
 
