@@ -56,5 +56,5 @@ class UserChangeForm(UserChangeForm):
         super().__init__(*args, **kwargs)
         password = self.fields.get("password")
         if password:
-            password.help_text = password.help_text.format("/reset-password/")
+            password.help_text = password.help_text.format("/password/")
 

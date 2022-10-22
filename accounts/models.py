@@ -30,6 +30,4 @@ class User(AbstractUser):
         return self.email
 
     def next_grade(self):
-
-        self.grade = choices[1]
-        self.save()
+        pass

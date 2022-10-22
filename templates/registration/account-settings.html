@@ -1,1 +1,27 @@
-<p>soon...</p>
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container pt-3">
+    <div class="card">
+        <div class="card-body">
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li class="">{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            <h3>your are in {{request.user.grade}} grade</h3>
+
+            <form method="post">
+                {% csrf_token %}
+                {{form|crispy}}
+                <button type="submit" class="btn btn-primary">save</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+   {% endblock content %}
