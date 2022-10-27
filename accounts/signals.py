@@ -1,8 +1,8 @@
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
+from kanji.models import *
 
 from .models import User
-from kanji.models import *
 
 
 @receiver(post_save, sender=User)

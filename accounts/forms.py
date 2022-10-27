@@ -1,21 +1,37 @@
 from django import forms
-from django.forms.widgets import PasswordInput, TextInput, EmailInput
-from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm, ReadOnlyPasswordHashField
+from django.contrib.auth.forms import ReadOnlyPasswordHashField, UserChangeForm
+from django.forms.widgets import EmailInput, PasswordInput, TextInput
 from django.utils.translation import gettext as _
 
 from .models import User
 
 
 class UserRegistrationForm(forms.ModelForm):
-    password1 = forms.CharField(widget=PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password', 'required': 'required'}))
-    password2 = forms.CharField(widget=PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Confirm Password', 'required': 'required'}))
+    password1 = forms.CharField(
+        widget=PasswordInput(
+            attrs={"class": "form-control", "placeholder": "Password", "required": "required"}
+        )
+    )
+    password2 = forms.CharField(
+        widget=PasswordInput(
+            attrs={
+                "class": "form-control",
+                "placeholder": "Confirm Password",
+                "required": "required",
+            }
+        )
+    )
 
     class Meta:
         model = User
-        fields = ('email', 'username')
+        fields = ("email", "username")
         widgets = {
-            'email': EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email', 'required': 'required'}),
-            'username': TextInput(attrs={'class': 'form-control', 'placeholder': 'First Name', 'required': 'required'}),
+            "email": EmailInput(
+                attrs={"class": "form-control", "placeholder": "Email", "required": "required"}
+            ),
+            "username": TextInput(
+                attrs={"class": "form-control", "placeholder": "First Name", "required": "required"}
+            ),
         }
 
     def clean_password2(self):
@@ -34,8 +50,26 @@ class UserRegistrationForm(forms.ModelForm):
 
 
 class CustomAuthForm(forms.Form):
-    email = forms.CharField(widget=EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email', 'required': 'required', 'name': 'email'}))
-    password = forms.CharField(widget=PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password', 'required': 'required', 'name': 'password'}))
+    email = forms.CharField(
+        widget=EmailInput(
+            attrs={
+                "class": "form-control",
+                "placeholder": "Email",
+                "required": "required",
+                "name": "email",
+            }
+        )
+    )
+    password = forms.CharField(
+        widget=PasswordInput(
+            attrs={
+                "class": "form-control",
+                "placeholder": "Password",
+                "required": "required",
+                "name": "password",
+            }
+        )
+    )
 
 
 class UserChangeForm(UserChangeForm):
@@ -50,11 +84,10 @@ class UserChangeForm(UserChangeForm):
 
     class Meta:
         model = User
-        fields = ('email', 'username')
+        fields = ("email", "username")
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         password = self.fields.get("password")
         if password:
             password.help_text = password.help_text.format("/password/")
-
