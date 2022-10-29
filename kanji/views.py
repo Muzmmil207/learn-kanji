@@ -15,10 +15,10 @@ from .models import Character, FlashCard
 @login_required(login_url="login/")
 def main(request):
     boxs = FlashCard.objects.filter(user=request.user)
-    boxsCont = [boxs.filter(box=n).count() for n in range(1, 6)]
+    boxs_cont = [boxs.filter(box=n).count() for n in range(1, 6)]
     num = request.GET.get("q", 0)
 
-    context = {"boxs": boxsCont, "num": num}
+    context = {"boxs": boxs_cont, "num": num}
     return render(request, "kanji/main.html", context)
 
 
@@ -44,10 +44,11 @@ def cards_data(request, num):
         flashCard = FlashCard.objects.get(character=character, user=user)
 
         flashCard.moving(result)
-
-        if user.card.filter(box=5) == user.card.all():
+        if (
+            FlashCard.objects.filter(user=user, box=5).count()
+            == FlashCard.objects.filter(user=user).count()
+        ):
             user.next_grade()
-
     return JsonResponse(cards, safe=False)
 
 

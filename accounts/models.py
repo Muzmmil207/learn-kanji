@@ -32,4 +32,7 @@ class User(AbstractUser):
         return self.email
 
     def next_grade(self):
-        pass
+        grades = [str(i) for i in range(1, 8)]
+        self.grade = str(int(self.grade) + 1)
+        if self.grade in grades:
+            self.save()

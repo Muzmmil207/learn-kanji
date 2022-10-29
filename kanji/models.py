@@ -33,7 +33,7 @@ class CharacterExamples(models.Model):
     audio = models.URLField()
 
     def __str__(self):
-        return f"{self.character}"
+        return self.character
 
 
 class FlashCard(models.Model):
