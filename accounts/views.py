@@ -17,7 +17,6 @@ from .token import account_activation_token
 
 
 def user_account_settings_view(request):
-    print(get_current_site(request))
     form = UserChangeForm(instance=request.user)
     if request.method == "POST":
         form = UserChangeForm(request.POST, instance=request.user)
@@ -46,8 +45,7 @@ def login_view(request):
             if user.is_active:
                 login(request, user)
                 return redirect("home")
-            else:
-                messages.error(request, "you have not activated your account yet.")
+            messages.error(request, "you have not activated your account yet.")
         else:
             messages.error(request, "email or password is incorrect.")
     return render(
@@ -66,7 +64,6 @@ def register_view(request):
     form = UserRegistrationForm(request.POST or None)
 
     if request.method == "POST":
-
         if form.is_valid():
             user = form.save()
             # to get the domain of the current site
@@ -90,7 +87,6 @@ def register_view(request):
             return redirect("login")
 
     context = {"form": form}
-
     return render(request, "registration/reqister.html", context)
 
 
@@ -106,4 +102,5 @@ def verify_account_view(request, uidb64, token):
         messages.success(request, "Your account successfully activate. You can now login")
     else:
         messages.error(request, "Activation link is invalid!")
+
     return redirect("login")

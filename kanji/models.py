@@ -17,7 +17,6 @@ class Character(models.Model):
     image = models.URLField()
     strokes = models.TextField()
     video = models.URLField()
-
     user = models.ManyToManyField(User, through="FlashCard", related_name="characters")
 
     def __str__(self):
@@ -38,11 +37,8 @@ class CharacterExamples(models.Model):
 
 
 class FlashCard(models.Model):
-
     character = models.ForeignKey(Character, related_name="card", on_delete=models.CASCADE)
-
     user = models.ForeignKey(User, related_name="card", on_delete=models.CASCADE)
-
     box = models.IntegerField(choices=zip(BOXES, BOXES), default=BOXES[0])
 
     def __str__(self):

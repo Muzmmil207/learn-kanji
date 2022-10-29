@@ -7,7 +7,7 @@ class CustomUserManager(BaseUserManager):
         if not email:
             raise ValueError(_("User must have an email"))
         if not password:
-            raise ValueError("Users must have a password")
+            raise ValueError("User must have a password")
         email = self.normalize_email(email)
         user = self.model(email=email, **etc)
         user.set_password(password)

@@ -13,11 +13,4 @@
             "source.organizeImports": true
         }
     },
-    // Django Extension
-    "files.associations": {
-        "**/*.html": "html",
-        "**/templates/**/*.html": "django-html",
-        "**/templates/**/*": "django-txt",
-        "**/requirements{/**,*}.{txt,in}": "pip-requirements"
-    },
 }
