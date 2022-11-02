@@ -52,7 +52,6 @@ def cards_data(request, num):
     return JsonResponse(cards, safe=False)
 
 
-@login_required(login_url="login/")
 def characters_view(request):
     tableSearch = request.GET.get("table_search", "")
     characters = Character.objects.filter(
@@ -71,7 +70,6 @@ def characters_view(request):
     return render(request, "kanji/characters.html", context)
 
 
-@login_required(login_url="login/")
 def character_view(request, letter):
     character = Character.objects.get(character=letter)
     context = {"char": character}

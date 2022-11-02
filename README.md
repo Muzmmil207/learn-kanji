@@ -1,4 +1,4 @@
-# Flash Card wep app to learn japanese kanji
+# Flash Card web app to learn japanese kanji
 
 GETTING STARTED
 

@@ -1,6 +1,6 @@
 import functools
-import requests
 
+import requests
 from django.core.management.base import BaseCommand
 from kanji.models import Character, CharacterExamples
 
@@ -20,7 +20,7 @@ class Command(BaseCommand):
             if not Character.objects.filter(character=data["kanji"]["character"]).exists():
                 character = Character(
                     character=data["kanji"]["character"],
-                    grade=str(data["references"]["grade"]),
+                    grade=data["references"]["grade"],
                     meaning=data["kanji"]["meaning"]["english"],
                     onyomi="{katakana} ({romaji})".format(**(data["kanji"]["onyomi"])),
                     kunyomi="{hiragana} ({romaji})".format(**(data["kanji"]["kunyomi"])),
@@ -38,7 +38,6 @@ class Command(BaseCommand):
                 )
 
                 examples = data["examples"]
-
                 for example in examples:
                     CharacterExamples.objects.create(
                         character=character,
