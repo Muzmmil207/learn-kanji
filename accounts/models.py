@@ -8,19 +8,19 @@ from .managers import CustomUserManager
 # Create your models here.
 
 choices = (
-    ("1", "1"),
-    ("2", "2"),
-    ("3", "3"),
-    ("4", "4"),
-    ("5", "5"),
-    ("6", "6"),
-    ("7", "7"),
+    (1, 1),
+    (2, 2),
+    (3, 3),
+    (4, 4),
+    (5, 5),
+    (6, 6),
+    (7, 7),
 )
 
 
 class User(AbstractUser):
     email = models.EmailField(_("email address"), unique=True)
-    grade = models.CharField(max_length=2, choices=choices, default=choices[0])
+    grade = models.IntegerField(choices=choices, default=1)
     is_active = models.BooleanField(default=False)
 
     USERNAME_FIELD = "email"
@@ -32,7 +32,7 @@ class User(AbstractUser):
         return self.email
 
     def next_grade(self):
-        grades = [str(i) for i in range(1, 8)]
-        self.grade = str(int(self.grade) + 1)
-        if self.grade in grades:
+        n_grade = self.grade + 1
+        if n_grade in range(1, 8):
+            self.grade = n_grade
             self.save()

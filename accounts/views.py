@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
@@ -16,6 +17,7 @@ from .token import account_activation_token
 # Create your views here.
 
 
+@login_required(login_url="login/")
 def user_account_settings_view(request):
     form = UserChangeForm(instance=request.user)
     if request.method == "POST":
