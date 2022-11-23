@@ -9,7 +9,7 @@ BOXES = range(1, NUM_BOXES + 1)
 
 class Character(models.Model):
     character = models.CharField(max_length=10)
-    grade = models.IntegerField(max_length=2, null=True, blank=True)
+    grade = models.IntegerField(null=True, blank=True)
     meaning = models.CharField(max_length=100)
     onyomi = models.TextField(null=True, blank=True)
     kunyomi = models.TextField(null=True, blank=True)
