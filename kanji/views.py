@@ -56,7 +56,7 @@ def characters_view(request):
     tableSearch = request.GET.get("table_search", "")
     characters = Character.objects.filter(
         Q(character=tableSearch)
-        | Q(grade=tableSearch)
+        | Q(grade__in=tableSearch)
         | Q(meaning__icontains=tableSearch)
         | Q(onyomi__icontains=tableSearch)
         | Q(kunyomi__icontains=tableSearch)
