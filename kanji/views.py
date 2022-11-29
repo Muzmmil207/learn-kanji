@@ -22,36 +22,6 @@ def main(request):
     return render(request, "kanji/main.html", context)
 
 
-@login_required(login_url="login/")
-def cards_data(request, num):
-    user = request.user
-    characters = list(
-        user.characters.filter(card__box=num)
-        .only("id", "character", "kunyomi", "onyomi", "meaning")
-        .values()
-    )
-
-    try:
-        cards = random.choices(characters, k=9)
-    except IndexError:
-        cards = characters
-
-    if request.method == "POST":
-        data = json.loads(request.body)
-        charId = data["charId"]
-        result = data["result"]
-        character = Character.objects.get(id=charId)
-        flashCard = FlashCard.objects.get(character=character, user=user)
-
-        flashCard.moving(result)
-        if (
-            FlashCard.objects.filter(user=user, box=5).count()
-            == FlashCard.objects.filter(user=user).count()
-        ):
-            user.next_grade()
-    return JsonResponse(cards, safe=False)
-
-
 def characters_view(request):
     tableSearch = request.GET.get("table_search", "")
     characters = Character.objects.filter(

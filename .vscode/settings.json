@@ -13,4 +13,9 @@
             "source.organizeImports": true
         }
     },
+    "cSpell.words": [
+        "csrftoken",
+        "kunyomi",
+        "onyomi"
+    ],
 }

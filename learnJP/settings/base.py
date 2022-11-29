@@ -31,8 +31,10 @@ INSTALLED_APPS = [
     # My apps
     "kanji.apps.KanjiConfig",
     "accounts.apps.AccountsConfig",
+    "api.apps.ApiConfig",
     # Third part
     "crispy_forms",
+    "rest_framework",
 ]
 
 
