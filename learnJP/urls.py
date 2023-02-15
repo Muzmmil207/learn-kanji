@@ -7,6 +7,7 @@ urlpatterns = [
     path("", include("kanji.urls")),
     path("api/", include("api.urls")),
     # Third part app
+    path("accounts/", include("allauth.urls")),
     path("__debug__/", include("debug_toolbar.urls")),
 ]
 

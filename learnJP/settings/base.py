@@ -15,7 +15,7 @@ SECRET_KEY = "django-insecure-zn7++3!kanj_a6swuf5$*lz*z%x=nqloo$@&-xqax(%q_4&q1o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.humanize",
+    "django.contrib.sites",
     # My apps
     "kanji.apps.KanjiConfig",
     "accounts.apps.AccountsConfig",
@@ -35,8 +36,22 @@ INSTALLED_APPS = [
     # Third part
     "crispy_forms",
     "rest_framework",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.google",
 ]
 
+SITE_ID = 1
+
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    "django.contrib.auth.backends.ModelBackend",
+    # `allauth` specific authentication methods, such as login by e-mail
+    "allauth.account.auth_backends.AuthenticationBackend",
+]
+
+ACCOUNT_EMAIL_REQUIRED = False
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -147,5 +162,5 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 CRISPY_TEMPLATE_PACK = "bootstrap4"
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"

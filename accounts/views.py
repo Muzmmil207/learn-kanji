@@ -50,6 +50,7 @@ def login_view(request):
             messages.error(request, "you have not activated your account yet.")
         else:
             messages.error(request, "email or password is incorrect.")
+            
     return render(
         request,
         "registration/login.html",

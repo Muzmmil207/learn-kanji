@@ -1,6 +1,5 @@
 {
     "editor.formatOnSave": true,
-    "python.pythonPath": "C:\\Users\\MyPc\\Desktop\\master\\jp\\Scripts\\python.exe",
     "python.sortImports.args": [
         "--profile=black",
     ],
